@@ -36,7 +36,32 @@ function App() {
       setNewTodo("")
     }
   }
+const completeTask = async (id) => {
+  const currentTodo = todoList.find(todo => todo.id === id)
+  const { data, error } = await supabase  
+    .from('todos')
+    .update({ is_completed: !currentTodo.is_completed })
+    .eq('id', id)
 
+  if (error) {
+    console.error("Error updating todo:", error)
+  } else {
+    setTodoList(todoList.map(todo =>
+      todo.id === id ? { ...todo, is_completed: !todo.is_completed } : todo
+    ))
+  }
+}
+const deleteTodo = async (id) => {
+  const { error } = await supabase
+    .from('todos')
+    .delete()
+    .eq('id', id)  
+  if (error) {
+    console.error("Error deleting todo:", error)
+  } else {
+    setTodoList(todoList.filter(todo => todo.id !== id))
+  }
+}
   return (
     <div>
       <h1>Todo List</h1>
@@ -50,7 +75,13 @@ function App() {
 
       <ul>
         {todoList.map(todo => (
-          <li key={todo.id}>{todo.name}</li>
+          <li key={todo.id}>
+           <p> {todo.name} </p>
+           <button onClick={() => completeTask(todo.id)}>
+             {todo.is_completed ? "Undo" : "Complete"}
+           </button>
+            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+          </li>
         ))}
       </ul>
     </div>
