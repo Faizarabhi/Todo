@@ -14,7 +14,7 @@ export const DarkModeToggle = () => {
       root.classList.add('dark');
       localStorage.theme = 'dark';
     } else {
-      root.classList.remove('dark');
+      root.classList.remove('dark'); 
       localStorage.theme = 'light';
     }
   }, [isDark]);
