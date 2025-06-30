@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { logout } from "../features/auth/authSlice";
 import { useNavigate } from 'react-router-dom';
+import { DarkModeToggle } from '../components/DarkModeToggle';
 
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const user = useAppSelector((state) => state.user);
@@ -16,14 +17,15 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   };
 
   return (
-    <div className="app-container" style={{ maxWidth: 960, margin: 'auto', padding: 20 }}>
-        <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <Link to="/" style={{ marginRight: 15 }}>Accueil</Link>
-            <Link to="/dashboard" style={{ marginRight: 15 }}>Dashboard</Link>
-            <Link to="/profile">Profil</Link>
-          </div>
-          <div>
+    <div className="app-container text-primary" style={{ maxWidth: 960, margin: 'auto', padding: 20 }}>
+       <nav className='flex justify-between bg-primary p-4'>
+    <div>
+      <Link to="/" className="mr-4 ">Accueil</Link>
+      <Link to="/dashboard" className="mr-4 text-onPrimary text-primary">Dashboard</Link>
+      <Link to="/profile">Profil</Link>
+    </div>
+    <DarkModeToggle />
+    <div>
             {user ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <img
@@ -51,8 +53,8 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               <Link to="/login">Se connecter</Link>
             )}
           </div>
-        </nav>
-
+  </nav>
+     
       <main>{children}</main>
 
       <footer style={{ marginTop: 40, borderTop: '1px solid #ddd', paddingTop: 10, textAlign: 'center' }}>
