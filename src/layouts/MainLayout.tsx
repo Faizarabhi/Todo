@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { logout } from "../features/auth/authSlice";
 import { useNavigate } from 'react-router-dom';
-import { DarkModeToggle } from '../components/DarkModeToggle';
+import { useTheme } from './ThemeProvider';
+import ThemeToggle from '../components/ThemeToggle';
 
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const user = useAppSelector((state) => state.user);
@@ -15,7 +16,7 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     dispatch(logout());
     navigate('/login');
   };
-
+  const { darkMode } = useTheme();
   return (
     <div className="app-container text-primary" style={{ maxWidth: 960, margin: 'auto', padding: 20 }}>
        <nav className='flex justify-between bg-primary p-4'>
@@ -24,7 +25,23 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <Link to="/dashboard" className="mr-4 text-onPrimary text-primary">Dashboard</Link>
       <Link to="/profile">Profil</Link>
     </div>
-    <DarkModeToggle />
+     <div className="min-h-screen bg-bg text-text">
+      <header className="p-6 border-b border-primary">
+        <h1 className="text-3xl font-bold">My App</h1>
+        <p>Current theme: {darkMode ? 'Dark' : 'Light'}</p>
+      </header>
+      
+      <main className="p-6">
+        <button className="px-4 py-2 bg-primary text-bg rounded-lg">
+          Primary Button
+        </button>
+        
+        <div className="mt-4 p-4 border border-primary rounded-lg">
+          <p>Card content</p>
+        </div>
+      </main>
+      <ThemeToggle />
+    </div>
     <div>
             {user ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>

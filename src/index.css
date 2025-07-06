@@ -1,17 +1,20 @@
 @import "tailwindcss";
- 
+
+
 :root {
-  --color-primary: #BDE4A7;
-  --color-bg: #BDE4A7; 
+  --color-primary: #FF99C8;
+  --color-bg: #D0F4DE;
+  --color-text: #0B2545;
 }
 
-
 .dark {
-  --color-primary: #FFFD98;
-  --color-bg: #FFFD98;   
-  
+  --color-primary: #13315C;
+  --color-bg: #0B2545;
+  --color-text: #8DA9C4;
 }
 
 body {
   background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
