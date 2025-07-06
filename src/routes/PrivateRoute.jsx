@@ -6,14 +6,35 @@ export default function PrivateRoute({ children }) {
   const user = useAppSelector((state) => state.user);
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
+  const [minTimeElapsed, setMinTimeElapsed] = useState(false);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    setIsLoading(false);
+    const minTimer = setTimeout(() => {
+      setMinTimeElapsed(true);
+    }, 2500);
+
+    const authCheck = setTimeout(() => {
+      setIsLoading(false);
+    }, 100);
+
+    return () => {
+      clearTimeout(minTimer);
+      clearTimeout(authCheck);
+    };
   }, []);
 
-  if (isLoading) {
-    return <div>Loading authentication state...</div>;
+  if (isLoading || !minTimeElapsed) {
+    return (
+        <video
+          autoPlay
+          muted
+          loop
+          className="w-full max-h-screen object-fill"
+        >
+          <source src="/src/assets/videos/checklist.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+    );
   }
 
   if (!user) {
