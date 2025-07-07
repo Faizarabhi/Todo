@@ -1,14 +1,15 @@
-import { useSelector } from 'react-redux'
 
+import { useAppSelector } from '../hooks/useAppSelector';
 export default function Dashboard() {
-const user = useAppSelector((state) => state.user.user);
+
+  const user = useAppSelector((state) => state.user);
   
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
       </div>
-      
+
       <div className="bg-white shadow rounded-lg p-6 mb-8">
         <h2 className="text-xl font-semibold mb-4">Welcome, {user?.email}</h2>
         <p className="text-gray-600 mb-4">

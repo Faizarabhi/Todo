@@ -6,9 +6,10 @@ import { logout } from "../features/auth/authSlice";
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from './ThemeProvider';
 import ThemeToggle from '../components/ThemeToggle';
+import { Outlet } from 'react-router-dom';
 
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const user = useAppSelector((state) => state.user);
+  const user = useAppSelector((state) => state.user); 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -25,21 +26,7 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <Link to="/dashboard" className="mr-4 text-onPrimary text-primary">Dashboard</Link>
       <Link to="/profile">Profil</Link>
     </div>
-     <div className="min-h-screen bg-bg text-text">
-      <header className="p-6 border-b border-primary">
-        <h1 className="text-3xl font-bold">My App</h1>
-        <p>Current theme: {darkMode ? 'Dark' : 'Light'}</p>
-      </header>
-      
-      <main className="p-6">
-        <button className="px-4 py-2 bg-primary text-bg rounded-lg">
-          Primary Button
-        </button>
-        
-        <div className="mt-4 p-4 border border-primary rounded-lg">
-          <p>Card content</p>
-        </div>
-      </main>
+     <div className=" bg-bg text-text">
       <ThemeToggle />
     </div>
     <div>
@@ -62,7 +49,7 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                     borderRadius: 4,
                     cursor: 'pointer'
                   }}
-                >
+                > 
                   Déconnexion
                 </button>
               </div>
@@ -70,13 +57,9 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               <Link to="/login">Se connecter</Link>
             )}
           </div>
-  </nav>
+  </nav> 
      
-      <main>{children}</main>
-
-      <footer style={{ marginTop: 40, borderTop: '1px solid #ddd', paddingTop: 10, textAlign: 'center' }}>
-        &copy; {new Date().getFullYear()} Mon Application
-      </footer>
+   <Outlet />
     </div>
   )
 }
